@@ -153,7 +153,7 @@ LISTA
     open -a Tailscale 2>/dev/null
     printf '  \033[1;35mSe abrió Tailscale (el ícono queda arriba, en la barra del menú).\033[0m\n'
     printf '  Si el Mac pregunta, dale Permitir a la configuración de VPN. Entra con %s y vuelve aquí.\n' "$CUENTA"
-    for intento in 1 2; do
+    for _ in 1 2; do
       printf '  Cuando hayas entrado, dale Enter... '; read -r _
       callado c_tailnet && break
     done

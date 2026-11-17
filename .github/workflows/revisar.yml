@@ -9,7 +9,7 @@ jobs:
   mac:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Sintaxis con el bash 3.2 del Mac
         run: /bin/bash -n mac.sh
       - name: shellcheck
@@ -19,7 +19,7 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Sintaxis con Windows PowerShell 5.1
         shell: powershell
         run: |
