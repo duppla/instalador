@@ -1,0 +1,28 @@
+name: revisar
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sintaxis con el bash 3.2 del Mac
+        run: /bin/bash -n mac.sh
+      - name: shellcheck
+        run: |
+          brew install shellcheck >/dev/null
+          shellcheck -s bash -S warning -e SC2086 mac.sh
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sintaxis con Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $e = $null
+          [void][Management.Automation.Language.Parser]::ParseInput([IO.File]::ReadAllText("$PWD\windows.ps1", [Text.Encoding]::UTF8), [ref]$null, [ref]$e)
+          if ($e) { $e | ForEach-Object { Write-Host "$($_.Extent.StartLineNumber): $($_.Message)" }; exit 1 }
